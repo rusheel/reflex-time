@@ -6,3 +6,5 @@
 Click on the shapes as fast as you can. Start playing by clicking on the blue box.
 
 Your results will be displayed when the game is over, Good Luck! 
+
+[Play Now](http://rusheel.github.com/reflex-time)
