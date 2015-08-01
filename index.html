@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+	<title>TEST YOUR REFLEX TIME</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+	<style type="text/css">
+		#box {
+			width:220px;
+			height:220px;
+			background-color:blue;
+			position:relative;
+		}	</style>
+</head>
+<body>
+	<h1>Test Your Reflex Time</h1>
+	<h3 id="start"> Test your reflex time and see how you stack up against others.
+		</br> </br>
+		Instructions: Click on the shapes as fast as you can. Start playing by clicking
+		on the blue box.</br>  Your results will be displayed when the game is over, Good Luck!
+		</br> </br> </h3>
+
+	<div id="box"> </div>
+	<script type="text/javascript">
+		var count = 0;
+		var times = [];
+		var date;
+
+		var createBox = function() {
+			var time = Math.random();
+			time = time * 4000;
+			setTimeout(function() {
+				if (time<2000) {
+					document.getElementById("box").style.borderRadius = "200px";
+				}
+				else document.getElementById("box").style.borderRadius = "0px";
+
+				document.getElementById("box").style.top = Math.random()*400 + "px";
+				document.getElementById("box").style.left = Math.random()*400 + "px";
+
+				document.getElementById("box").style.backgroundColor = randomColorGenerator();
+				document.getElementById("box").style.display = "block";
+				date = Date.now();
+			}, time);
+		}
+
+		var randomColorGenerator = function() {
+			return "#"+((1<<24)*Math.random()|0).toString(16);
+		}
+
+		document.getElementById("box").onclick = function() {
+			if (date != undefined) {
+				var time_clicked = Date.now()-date;
+				times.push(time_clicked);
+				++count;
+			}
+			if (count>=15) {
+				var sum = 0
+				for(var i = 0; i<15; ++i) {
+					sum += times[i];
+				}
+				var avg = sum/15;
+				avg = Math.round(avg)
+				this.style.display="none";
+				var relational_score;
+				if ((650<=avg) && (avg<=800)) {
+					relational_score = "average"
+				}
+			else if (avg>800) {
+					relational_score = "below average"
+				}
+				else relational_score = "above average";
+
+				if(!alert('Your average reflex time is: '+ avg + " ms, and compared to others your score is "+ relational_score)){window.location.reload();}
+			}
+			this.style.display="none";
+			createBox();
+		}	</script>
+</body>
+</html>
